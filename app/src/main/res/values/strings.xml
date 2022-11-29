@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">InstitutApp</string>
+
+    <string-array name="formationNamesTXT">
+        <item>HTML</item>
+        <item>CSS</item>
+        <item>JAVASCRIPT</item>
+        <item>PHP</item>
+        <item>PYTHON</item>
+        <item>JAVA</item>
+    </string-array>
+</resources>
