@@ -18,24 +18,29 @@ public class Recap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recap);
-
+/*
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.hide();*/
+        DBHelper db = new DBHelper(this);
 
         TextView recapT, plusF = findViewById(R.id.textViewPlusF);
+
+        recapT = findViewById(R.id.recapTXT);
+        Intent i = getIntent();
+        String username = i.getStringExtra("username");
+        String formationName = i.getStringExtra("formationName");
+        recapT.setText(formationName);
 
         plusF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), MainActivity.class);
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });
 
-        recapT = findViewById(R.id.recapTXT);
-        Intent i = getIntent();
-        String title = i.getStringExtra("title");
-        recapT.setText(title);
+
 
     }
 }

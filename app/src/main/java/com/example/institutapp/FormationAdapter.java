@@ -22,6 +22,8 @@ import java.util.ArrayList;
 public class FormationAdapter extends RecyclerView.Adapter<FormationAdapter.MyViewHolder> {
     Context context;
     static ArrayList<FormationModel> formationModels;
+    private static String username;
+
     /*
     static int selectedItem = 0;
     static OnFormationClick onFormationClick;
@@ -29,6 +31,14 @@ public class FormationAdapter extends RecyclerView.Adapter<FormationAdapter.MyVi
     public interface OnFormationClick {
         void onClick(int pos);
     }*/
+
+    public void setUsername(String username){
+        this.username = username;
+    }
+
+    public String getUsername(){
+        return this.username;
+    }
 
     public FormationAdapter( Context context, ArrayList<FormationModel> formationModels){
         this.context = context;
@@ -91,12 +101,16 @@ public class FormationAdapter extends RecyclerView.Adapter<FormationAdapter.MyVi
             imgView = itemView.findViewById(R.id.imageViewF);
             txtView = itemView.findViewById(R.id.textViewF);
 
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(v.getContext(), Confirm.class);
-                    i.putExtra("title",formationModels.get(getAdapterPosition()).getFormationName());
+                    i.putExtra("formationName",formationModels.get(getAdapterPosition()).getFormationName());
                     i.putExtra("image",formationModels.get(getAdapterPosition()).getImage());
+                    i.putExtra("username",username);
+
+
                     v.getContext().startActivity(i);
                 }
             });

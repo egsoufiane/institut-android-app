@@ -21,14 +21,16 @@ public class Confirm extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
-
+        /*
         ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
+        actionBar.hide();*/
 
         backI = findViewById(R.id.imageViewBack);
         confirmI = findViewById(R.id.imageViewFConfirm);
         confirmT = findViewById(R.id.textViewFConfirm);
         confirmB = findViewById(R.id.buttonFConfirm);
+
+        DBHelper db = new DBHelper(this);
 
 
         backI.setOnClickListener(new View.OnClickListener() {
@@ -40,14 +42,15 @@ public class Confirm extends AppCompatActivity {
         });
 
         Intent i = getIntent();
-        String title = i.getStringExtra("title");
+        String formationName = i.getStringExtra("formationName");
+        String username = i.getStringExtra("username");
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int resId = bundle.getInt("image");
             confirmI.setImageResource(resId);
         }
 
-        confirmT.setText(title);
+        confirmT.setText(formationName);
 
 
         //Confirmer choix intent vers Recap
@@ -55,8 +58,16 @@ public class Confirm extends AppCompatActivity {
         confirmB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(v.getContext(), Recap.class);
-                i.putExtra("title", title);
+                i.putExtra("username", username);
+                i.putExtra("formationName", formationName+db.getIdFormation(formationName)+db.getIdUser(username));
+
+                //db.getIdFormation(formationName);
+                //db.checkFormation(formationName);
+                //db.insertEnrolled(db.getIdUser(username), db.getIdFormation(formationName));
+
+
                 startActivity(i);
             }
         });

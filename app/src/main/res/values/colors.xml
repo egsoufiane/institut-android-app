@@ -12,4 +12,5 @@
     <color name="startcolor">#38ef7d</color>
     <color name="endcolor">#11998e</color>
     <color name="backgroundColor">#F7F6FF</color>
+    <color name="alertColor">#cc3300</color>
 </resources>

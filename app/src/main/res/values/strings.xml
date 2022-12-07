@@ -9,4 +9,22 @@
         <item>PYTHON</item>
         <item>JAVA</item>
     </string-array>
+
+    <string-array name="beginDate">
+        <item>2023-02-01</item>
+        <item>2022-02-01</item>
+        <item>2022-12-01</item>
+        <item>2023-02-15</item>
+        <item>2023-04-01</item>
+        <item>2023-01-15</item>
+    </string-array>
+
+    <string-array name="endDate">
+        <item>2023-03-01</item>
+        <item>2022-04-01</item>
+        <item>2022-12-30</item>
+        <item>2023-04-15</item>
+        <item>2023-05-01</item>
+        <item>2023-03-15</item>
+    </string-array>
 </resources>
