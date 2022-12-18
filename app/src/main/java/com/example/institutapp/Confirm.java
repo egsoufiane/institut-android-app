@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Confirm extends AppCompatActivity {
 
@@ -41,9 +42,9 @@ public class Confirm extends AppCompatActivity {
             }
         });
 
-        Intent i = getIntent();
-        String formationName = i.getStringExtra("formationName");
-        String username = i.getStringExtra("username");
+        Intent intent = getIntent();
+        String formationName = intent.getStringExtra("formationName");
+        String username = intent.getStringExtra("username");
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             int resId = bundle.getInt("image");
@@ -63,12 +64,19 @@ public class Confirm extends AppCompatActivity {
                 i.putExtra("username", username);
                 i.putExtra("formationName", formationName+db.getIdFormation(formationName)+db.getIdUser(username));
 
+                //+db.getIdFormation(formationName)+db.getIdUser(username)
+
                 //db.getIdFormation(formationName);
                 //db.checkFormation(formationName);
-                //db.insertEnrolled(db.getIdUser(username), db.getIdFormation(formationName));
+                if(db.checkEnrollement(db.getIdUser(username),db.getIdFormation(formationName)))
+                    Toast.makeText(Confirm.this, "Already registered for this course", Toast.LENGTH_SHORT).show();
+                else {
+                    db.insertEnrolled(db.getIdUser(username), db.getIdFormation(formationName));
+                    startActivity(i);
+                }
 
 
-                startActivity(i);
+
             }
         });
 

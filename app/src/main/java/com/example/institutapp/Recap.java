@@ -13,7 +13,6 @@ public class Recap extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +26,7 @@ public class Recap extends AppCompatActivity {
 
         recapT = findViewById(R.id.recapTXT);
         Intent i = getIntent();
-        String username = i.getStringExtra("username");
+        String usernamePI = i.getStringExtra("username");
         String formationName = i.getStringExtra("formationName");
         recapT.setText(formationName);
 
@@ -35,7 +34,7 @@ public class Recap extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(v.getContext(), MainActivity.class);
-                i.putExtra("username", username);
+                //i.putExtra("usernamePI", usernamePI);
                 startActivity(i);
             }
         });

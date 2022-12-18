@@ -110,7 +110,6 @@ public class FormationAdapter extends RecyclerView.Adapter<FormationAdapter.MyVi
                     i.putExtra("image",formationModels.get(getAdapterPosition()).getImage());
                     i.putExtra("username",username);
 
-
                     v.getContext().startActivity(i);
                 }
             });

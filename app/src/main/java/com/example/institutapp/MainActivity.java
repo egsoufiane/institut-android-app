@@ -6,23 +6,37 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
+
+
+public class MainActivity extends AppCompatActivity{
 
     //list pour storer img et nom des formations
     ArrayList<FormationModel> formationModels = new ArrayList<>();
     FormationAdapter adapter = new FormationAdapter(this, formationModels);
-    private String username;
+
+
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        final String username = intent.getStringExtra("user");
+        savedInstanceState.putString("username", username);
+        // ... other fields
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
 
     @Override
@@ -33,9 +47,23 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();*/
 
-       DBHelper db = new DBHelper(this);
+
+        if (savedInstanceState != null) {
+
+            String username = savedInstanceState.getString("username");
+            adapter.setUsername(username);
 
 
+        } else {
+            Intent intent = getIntent();
+            String username = intent.getStringExtra("user");
+            adapter.setUsername(username);
+        }
+
+        DBHelper db = new DBHelper(this);
+
+        //String username;
+        //String usernamePI;
 
         String[] formationNames = getResources().getStringArray(R.array.formationNamesTXT);
         String[] formationBD = getResources().getStringArray(R.array.beginDate);
@@ -56,23 +84,31 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.formationRecycler);
         setUpFormationModels();
 
+
+
         //Get username and pass it to FormationAdapter
-        Intent intent = getIntent();
-        username = intent.getStringExtra("user");
+
+        //usernamePI = intent.getStringExtra("usernamePI");
+/*
+        if(!username.isEmpty())
+            adapter.setUsername("username");
+        else
+            Toast.makeText(MainActivity.this, "Username not set", Toast.LENGTH_SHORT).show();*/
+
 
         //Get username from Recap +Info click
 
-        Intent intentPI = getIntent();
-        username = intentPI.getStringExtra("username");
-
-        adapter.setUsername(username);
 
 
-
+        /*if(!username.isEmpty())
+            adapter.setUsername(username);*/
+        /*if(!usernamePI.isEmpty())
+            adapter.setUsername(usernamePI);*/
 
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         //search
 
@@ -96,7 +132,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
+
+
 
     //Filtrer la liste selon le texte passer en argument
     public void filter(String text){

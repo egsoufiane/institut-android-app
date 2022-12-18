@@ -14,7 +14,6 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +36,7 @@ public class Login extends AppCompatActivity {
             String pass = etPassword.getText().toString();
 
             Intent i = new Intent(v.getContext(), MainActivity.class);
-            Intent refresh = new Intent(v.getContext(), Login.class);
+            //Intent refresh = new Intent(v.getContext(), Login.class);
             /*if(etUsername.getText().toString().equals("username") && etPassword.getText().toString().equals("password")){
                 v.getContext().startActivity(i);
                 //finish();
@@ -51,7 +50,7 @@ public class Login extends AppCompatActivity {
             else { if(db.checkUserPass(user, pass)){
                 i.putExtra("user",user);
                 startActivity(i);
-                finish();
+                //finish();
             } else loginMessage.setText("Username or Password Incorrect");
             }
 

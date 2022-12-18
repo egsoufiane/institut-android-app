@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String queryU = "CREATE TABLE users(idUser integer PRIMARY KEY  AUTOINCREMENT , username TEXT, password TEXT)";
         db.execSQL(queryU);
         db.execSQL("CREATE TABLE formations(idFormation integer PRIMARY KEY  AUTOINCREMENT, name TEXT UNIQUE, beginDate TEXT, endDate TEXT)");
-        db.execSQL("CREATE TABLE enrolled(idUser int , idFormation, FOREIGN KEY (idUser) REFERENCES users(idUser),FOREIGN KEY (idFormation) REFERENCES formations(idFormation))");
+        db.execSQL("CREATE TABLE enrolled(idUser integer , idFormation integer, FOREIGN KEY (idUser) REFERENCES users(idUser),FOREIGN KEY (idFormation) REFERENCES formations(idFormation))");
 
     }
 
@@ -108,6 +108,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         public int getIdFormation(String name){
         //ArrayList<Integer> listid = new ArrayList<>();
+
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery( "SELECT idFormation from formations where name = ?", new String[] {name});
 
@@ -115,21 +116,22 @@ public class DBHelper extends SQLiteOpenHelper {
             return cursor.getInt(0);
 
         //return cursor.getInt(cursor.getColumnIndex("idFormation"));
-            /*while (cursor.moveToNext()) {
+/*
+            while (cursor.moveToNext()) {
                 if(cursor.getCount()>0) {
                     break;
                 }
             }*/
 
 
-
-        /*
+/*
         while (cursor.moveToNext()) {
 
                 listid.add(cursor.getInt(0));
         }
 
         return listid.get(0);*/
+
 
         //return cursor.getCount();
 
@@ -142,6 +144,13 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues.put("idUser", idUser);
         contentValues.put("idFormation", idFormation);
         long result = db.insert("enrolled", null, contentValues);
+    }
+
+    public Boolean checkEnrollement(int idU,int idF){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * from enrolled where idUser =" + idU + " AND  idFormation =" + idF, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
     }
 
 
